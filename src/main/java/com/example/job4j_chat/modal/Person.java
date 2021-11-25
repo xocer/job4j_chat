@@ -11,7 +11,7 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String login;
+    private String username;
     private String password;
     @ManyToOne
     @JoinColumn(name = "role_id")
