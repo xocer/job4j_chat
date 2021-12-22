@@ -25,7 +25,7 @@ public class RoomController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Room> findById(@PathVariable int id) {
+    public ResponseEntity<Room> findById(@PathVariable Integer id) {
         var room = roomRepository.findById(id);
         return new ResponseEntity<>(room.orElse(new Room()),
                 room.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
@@ -38,12 +38,18 @@ public class RoomController {
 
     @PutMapping("/")
     public ResponseEntity<Void> update(@RequestBody Room room) {
+        if (room.getId() == null) {
+            throw new NullPointerException("Id cannot be null");
+        }
         roomRepository.save(room);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        if (id == null) {
+            throw new NullPointerException("Id cannot be null");
+        }
         roomRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }

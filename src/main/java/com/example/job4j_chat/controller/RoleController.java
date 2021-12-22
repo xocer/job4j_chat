@@ -25,7 +25,7 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Role> findById(@PathVariable int id) {
+    public ResponseEntity<Role> findById(@PathVariable Integer id) {
         var role = roleRepository.findById(id);
         return new ResponseEntity<>(role.orElse(new Role()),
                 role.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
@@ -38,12 +38,18 @@ public class RoleController {
 
     @PutMapping("/")
     public ResponseEntity<Void> update(@RequestBody Role role) {
+        if (role.getId() == null) {
+            throw new NullPointerException("Id cannot be null");
+        }
         roleRepository.save(role);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        if (id == null) {
+            throw new NullPointerException("Id cannot be null");
+        }
         roleRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
