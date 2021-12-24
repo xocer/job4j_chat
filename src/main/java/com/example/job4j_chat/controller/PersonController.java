@@ -31,8 +31,11 @@ public class PersonController {
     }
 
     @GetMapping("/")
-    public List<Person> findAll() {
-        return StreamSupport.stream(personRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    public ResponseEntity<List<Person>> findAll() {
+        var personList = personRepository.findAll();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(personList);
     }
 
     @GetMapping("/{id}")
