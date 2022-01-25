@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -32,7 +33,7 @@ public class RoomController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Room> create(@RequestBody Room room) {
+    public ResponseEntity<Room> create(@Valid @RequestBody Room room) {
         return new ResponseEntity<>(roomRepository.save(room), HttpStatus.CREATED);
     }
 

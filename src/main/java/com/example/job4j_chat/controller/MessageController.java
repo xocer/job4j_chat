@@ -2,12 +2,12 @@ package com.example.job4j_chat.controller;
 
 import com.example.job4j_chat.modal.Message;
 import com.example.job4j_chat.repository.MessageRepository;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -34,7 +34,7 @@ public class MessageController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Message> create(@RequestBody Message message) {
+    public ResponseEntity<Message> create(@Valid @RequestBody Message message) {
         return new ResponseEntity<>(messageRepository.save(message), HttpStatus.CREATED);
     }
 
